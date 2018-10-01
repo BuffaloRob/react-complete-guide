@@ -12,16 +12,6 @@ class App extends Component {
     showPersons: false,
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: newName, age: 33 },
-        { name: 'Chad', age: 55 }
-      ]
-    })
-  }
-
   nameChangeHandler = (event) => {
     this.setState({
       persons: [
@@ -37,6 +27,14 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  deletePersonHandler = (personIndex) => {
+    //const persons = this.state.persons.slice();
+    //can use above or below to make a copy of the array before modifying it
+    const persons = [...this.state.persons];
+    persons.slice(personIndex, 1);
+    this.setState({persons: persons})
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -50,8 +48,9 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
             return <Person 
+            click={() => this.deletePersonHandler(index)}
             name={person.name} 
             age={person.age}/>
           })}
