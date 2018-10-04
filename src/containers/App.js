@@ -7,25 +7,46 @@ import Cockpit from '../components/Cockpit/Cockpit'
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log('[App.js] inside constructor', props);
+    console.log("[App.js] inside constructor", props);
   }
 
   componentWillMount() {
-    console.log('[App.js] inside componentWillMount');
+    console.log("[App.js] inside componentWillMount");
   }
 
   componentDidMount() {
-    console.log('[App.js] inside componentDidMount')
+    console.log("[App.js] inside componentDidMount");
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(
+      "[Update App.js] inside shouldComponentUpdate",
+      nextProps,
+      nextState
+    );
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "[Update App.js] inside componentWillUpdate",
+      nextProps,
+      nextState
+    );
+  }
+
+  componentDidUpdate() {
+    console.log("[Update App.js] Inside componentDidUpdate");
   }
 
   state = {
     persons: [
-      { id: 'afas3', name: 'Max', age: 28 },
-      { id: 'gasf5', name: 'Rob', age: 33 },
-      { id: 'afgh5', name: 'Chad', age: 44 }
+      { id: "afas3", name: "Max", age: 28 },
+      { id: "gasf5", name: "Rob", age: 33 },
+      { id: "afgh5", name: "Chad", age: 44 }
     ],
-    showPersons: false,
-  }
+    showPersons: false
+  };
 
   nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -43,30 +64,30 @@ class App extends Component {
     persons[personIndex] = person;
     this.setState({
       persons: persons
-    })
-  }
+    });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
-  }
+    this.setState({ showPersons: !doesShow });
+  };
 
-  deletePersonHandler = (personIndex) => {
+  deletePersonHandler = personIndex => {
     //const persons = this.state.persons.slice();
     //can use above or below to make a copy of the array before modifying it
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
-    this.setState({persons: persons})
-  }
+    this.setState({ persons: persons });
+  };
 
   render() {
-    console.log('App.js inside render')
+    console.log("App.js inside render");
     let persons = null;
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Persons 
+          <Persons
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
             changed={this.nameChangeHandler}
@@ -77,7 +98,7 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <Cockpit 
+        <Cockpit
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
