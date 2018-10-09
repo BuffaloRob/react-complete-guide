@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Person.css';
+import WithClass from '../../../hoc/WithClass';
 // import Radium from 'radium';
 
 class Person extends Component {
@@ -18,7 +19,7 @@ class Person extends Component {
 
   render() {
     return (
-      <div className={classes.Person}>
+      <WithClass class={classes.Person}>
         <p onClick={this.props.click}>
           I'm {this.props.name} and I am {this.props.age}
         </p>
@@ -28,7 +29,7 @@ class Person extends Component {
           onChange={this.props.changeName}
           value={this.props.name}
         />
-      </div>
+      </WithClass>
     );
   }
 }
