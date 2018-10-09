@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Person.css';
 import WithClass from '../../../hoc/WithClass';
+import withClass from '../../../hoc/withClassTwo';
+import Aux from '../../../hoc/Aux';
 // import Radium from 'radium';
 
 class Person extends Component {
@@ -19,7 +21,7 @@ class Person extends Component {
 
   render() {
     return (
-      <WithClass class={classes.Person}>
+      <Aux>
         <p onClick={this.props.click}>
           I'm {this.props.name} and I am {this.props.age}
         </p>
@@ -29,9 +31,9 @@ class Person extends Component {
           onChange={this.props.changeName}
           value={this.props.name}
         />
-      </WithClass>
+      </Aux>
     );
   }
 }
 
-export default Person;
+export default withClass(Person, classes.Person);
