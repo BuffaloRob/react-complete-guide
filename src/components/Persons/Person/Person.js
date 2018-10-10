@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Person.css';
 import WithClass from '../../../hoc/WithClass';
-import withClass from '../../../hoc/withClassTwo';
+import withClassTwo from '../../../hoc/withClassTwo';
 import Aux from '../../../hoc/Aux';
 // import Radium from 'radium';
 
@@ -11,6 +11,7 @@ class Person extends Component {
   constructor(props) {
     super(props);
     console.log("Person.js inside constructor", props);
+    this.inputElement = React.createRef();
   }
 
   componentWillMount() {
@@ -20,8 +21,12 @@ class Person extends Component {
   componentDidMount() {
     console.log("Person.js inside componentDidMount");
     if (this.props.position === 0) {
-        this.inputElement.focus();
+        this.inputElement.current.focus();
     }
+  }
+
+  focus() {
+    this.inputElement.current.focus();
   }
 
   render() {
@@ -32,7 +37,7 @@ class Person extends Component {
         </p>
         <p>{this.props.children}</p>
         <input
-          ref={(inp) => { this.inputElement = inp }}
+          ref={this.inputElement}
           type="text"
           onChange={this.props.changeName}
           value={this.props.name}
@@ -49,4 +54,4 @@ Person.propTypes = {
   changed: PropTypes.func,
 };
 
-export default withClass(Person, classes.Person);
+export default withClassTwo(Person, classes.Person);
