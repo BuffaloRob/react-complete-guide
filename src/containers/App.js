@@ -7,6 +7,8 @@ import WithClass from '../hoc/WithClass';
 import withClass from '../hoc/withClassTwo';
 // import Radium, { StyleRoot } from 'radium';
 
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -107,7 +109,6 @@ class App extends PureComponent {
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
             changed={this.nameChangeHandler}
-            isAuthenticated={this.state.authenticated}
           />
         </div>
       );
@@ -123,7 +124,7 @@ class App extends PureComponent {
           clicked={this.togglePersonsHandler}
           login={this.loginHandler}
         />
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>{persons}</AuthContext.Provider>
       </Aux>
     );
   }

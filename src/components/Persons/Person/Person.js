@@ -5,6 +5,7 @@ import classes from './Person.css';
 import WithClass from '../../../hoc/WithClass';
 import withClassTwo from '../../../hoc/withClassTwo';
 import Aux from '../../../hoc/Aux';
+import { AuthContext } from '../../../containers/App'
 // import Radium from 'radium';
 
 class Person extends Component {
@@ -30,21 +31,16 @@ class Person extends Component {
   }
 
   render() {
-    return (
-      <Aux>
-        {this.props.authenticated ? <p>I'm authenticated</p> : null}
+    return <Aux>
+        <AuthContext.Consumer>
+          {auth => auth ? <p>I'm authenticated</p> : null}
+        </AuthContext.Consumer>
         <p onClick={this.props.click}>
           I'm {this.props.name} and I am {this.props.age}
         </p>
         <p>{this.props.children}</p>
-        <input
-          ref={this.inputElement}
-          type="text"
-          onChange={this.props.changeName}
-          value={this.props.name}
-        />
-      </Aux>
-    );
+        <input ref={this.inputElement} type="text" onChange={this.props.changeName} value={this.props.name} />
+      </Aux>;
   }
 }
 
